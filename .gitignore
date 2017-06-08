@@ -1,0 +1,10 @@
+.settings
+.git
+*/.git
+/target/
+/classes/
+.class
+.classpath
+.project
+target
+classes

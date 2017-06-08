@@ -1,0 +1,41 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>mobi.opendsp</groupId>
+	<artifactId>opendsp</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>opendsp</name>
+	<description>opendsp</description>
+
+	<properties>
+		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	<modules>
+		<module>opendsp-proto</module>
+		<module>opendsp-dao</module>
+		<module>opendsp-service</module>
+		<module>opendsp-web</module>
+		<module>opendsp-agency</module>
+		<module>opendsp-engine</module>
+		<module>opendsp-adx-connector</module>
+		<module>opendsp-ssp-connector</module>
+		<module>opendsp-commons</module>
+		<module>opendsp-adx-connector-api</module>
+	</modules>
+</project>
