@@ -31,7 +31,7 @@
 		<module>opendsp-dao</module>
 		<module>opendsp-service</module>
 		<module>opendsp-web</module>
-		<module>opendsp-agency</module>
+		
 		<module>opendsp-engine</module>
 		<module>opendsp-adx-connector</module>
 		<module>opendsp-ssp-connector</module>
