@@ -37,5 +37,6 @@
 		<module>opendsp-ssp-connector</module>
 		<module>opendsp-commons</module>
 		<module>opendsp-adx-connector-api</module>
+		<module>opendsp-pixel-connector</module>
 	</modules>
 </project>
