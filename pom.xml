@@ -9,10 +9,74 @@
 	<description>opendsp</description>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
 		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+		<maven-release-plugin.version>2.5.2</maven-release-plugin.version>
+		<maven-assembly-plugin.version>2.5.5</maven-assembly-plugin.version>
+
+		<spring.version>4.1.6.RELEASE</spring.version>
+		<mybatis-spring.version>1.2.3</mybatis-spring.version>
 	</properties>
 
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-core</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-aop</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-beans</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-context-support</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-expression</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-jdbc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-web</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>
+				<version>${spring.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mybatis</groupId>
+				<artifactId>mybatis-spring</artifactId>
+				<version>${mybatis-spring.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
 	<build>
+		<pluginManagement>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -25,13 +89,13 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<modules>
 		<module>opendsp-proto</module>
 		<module>opendsp-dao</module>
 		<module>opendsp-service</module>
 		<module>opendsp-web</module>
-		
+
 		<module>opendsp-engine</module>
 		<module>opendsp-adx-connector</module>
 		<module>opendsp-ssp-connector</module>
