@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+	<!-- 此处指定生成针对MyBatis3的DAO -->
+	<context id="context1" targetRuntime="Mybatis3">
+		<plugin type="info.javagossip.mybatis.generator.plugin.PaginationPlugin" />
+		
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+			<property name="suppressDate" value="true" />
+		</commentGenerator>
+
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1:3306/opendsp" userId="root"
+			password="" />
+
+		<javaModelGenerator targetPackage="mobi.opendsp.model"
+			targetProject="src/main/java" />
+		<sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources" />
+		<javaClientGenerator targetPackage="mobi.opendsp.dao"
+			targetProject="src/main/java" type="XMLMAPPER" />
+
+		<table tableName="agency" />
+		<table tableName="advertiser" />
+		<table tableName="advertiser_inst" />
+		<table tableName="campaign" />
+		<table tableName="ad_unit" />
+		<table tableName="creative" />
+	</context>
+</generatorConfiguration>

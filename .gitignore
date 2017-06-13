@@ -6,5 +6,6 @@
 .class
 .classpath
 .project
+.DS_Store
 target
 classes
