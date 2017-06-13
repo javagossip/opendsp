@@ -1,0 +1,39 @@
+package mobi.opendsp.proto;
+
+option java_package = "mobi.opendsp.proto";
+option java_outer_classname = "OpenDsp";
+option java_generic_services = true;
+option optimize_for = SPEED;
+
+//opendsp model definitions
+message Agency {}
+
+message Advertiser {}
+
+message Campaign {}
+
+message AdUnit {}
+
+message MediaFloorPrice {}
+
+//opendsp bidding service definition
+message UserInfo {}
+message PosInfo {}
+
+message Ad {}
+
+message BiddingReq {
+    required string bid_id = 1;
+    optional UserInfo user_info = 2;
+    repeated PosInfo pos_info = 3;
+    optional bool is_test = 4;
+    optional bool is_debug = 5;
+}
+
+message BiddingRsp {
+    repeated Ad ad = 1;
+}
+
+service BiddingService {
+    rpc bidding( BiddingReq ) returns ( BiddingRsp );
+}
