@@ -7,20 +7,45 @@
 	<packaging>pom</packaging>
 	<name>opendsp</name>
 	<description>opendsp</description>
+	<url>https://github.com/javagossip/opendsp</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
-		<maven-release-plugin.version>2.5.2</maven-release-plugin.version>
-		<maven-assembly-plugin.version>2.5.5</maven-assembly-plugin.version>
-		<mybatis-generator-maven-plugin.version>1.3.5</mybatis-generator-maven-plugin.version>
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<mybatis.version>3.4.4</mybatis.version>
 		<mybatis-spring.version>1.3.4</mybatis-spring.version>
 		<mybatis-generator-core.version>1.3.5</mybatis-generator-core.version>
 		<mysql-connector-java.version>5.1.26</mysql-connector-java.version>
 		<protobuf-java.version>2.6.1</protobuf-java.version>
+		<maven-compiler-plugin.version>2.3.2</maven-compiler-plugin.version>
+		<maven-release-plugin.version>2.5.2</maven-release-plugin.version>
+		<maven-assembly-plugin.version>2.5.5</maven-assembly-plugin.version>
+		<mybatis-generator-maven-plugin.version>1.3.5</mybatis-generator-maven-plugin.version>
+		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
+		<maven-javadoc-plugin.version>2.10.4</maven-javadoc-plugin.version>
+
 	</properties>
+
+	<scm>
+		<connection>scm:git:https://github.com/javagossip/opendsp.git</connection>
+		<developerConnection>scm:git:https://github.com/javagossip/opendsp.git</developerConnection>
+		<url>https://github.com/javagossip/opendsp</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<developers>
+		<developer>
+			<name>weiping wang</name>
+			<email>javagossip@gmail.com</email>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+		</license>
+	</licenses>
 
 	<dependencyManagement>
 		<dependencies>
@@ -118,6 +143,46 @@
 					<target>1.7</target>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>${maven-source-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>${maven-javadoc-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.6</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 
@@ -133,4 +198,15 @@
 		<module>opendsp-adx-connector-api</module>
 		<module>opendsp-pixel-connector</module>
 	</modules>
+
+	<distributionManagement>
+		<repository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
