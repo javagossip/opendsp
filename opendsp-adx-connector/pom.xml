@@ -8,4 +8,11 @@
   <artifactId>opendsp-adx-connector</artifactId>
   <name>opendsp-adx-connector</name>
   <description>the adx connector module for opendsp</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>mobi.opendsp</groupId>
+  		<artifactId>opendsp-adx-connector-api</artifactId>
+  		<version>1.0.0-SNAPSHOT</version>
+  	</dependency>
+  </dependencies>
 </project>
