@@ -30,7 +30,7 @@
     </scm>
     <properties>
         <java.version>17</java.version>
-        <dorado.version>0.0.61</dorado.version>
+        <dorado.version>0.0.62-SNAPSHOT</dorado.version>
         <mybatis-flex.version>1.10.9</mybatis-flex.version>
         <guava.version>33.4.0-jre</guava.version>
         <jbcrypt.version>0.4</jbcrypt.version>
@@ -156,7 +156,7 @@
         <module>opendsp-core</module>
         <module>opendsp-adx</module>
         <module>opendsp-dashboard-api</module>
-        <module>opendsp-rtb-api</module>
+        <module>opendsp-rtb-serving</module>
         <module>opendsp-event-serving</module>
         <module>opendsp-proto</module>
     </modules>

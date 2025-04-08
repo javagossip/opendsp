@@ -4,6 +4,8 @@ import java.util.UUID;
 
 public class Constants {
 
+    public static final int PASSWORD_MIN_LENGTH = 6;
+
     public interface ErrorCodes {
 
         int SUCCESS = 0;
@@ -19,6 +21,8 @@ public class Constants {
         String USER_NOT_EXISTS = "用户[%s]不存在";
         String USER_NOT_EXISTS_BY_ID = "系统用户不存在，用户id:[%s]";
         String ADVERTISER_UNBIND_SYS_USER = "广告主未绑定系统用户账号";
+        String AGENCY_NOT_EXISTS = "代理商不存在,ID：[%s]";
+        String AGENCY_UNBIND_SYS_USER = "代理商未绑定系统用户账号";
 
         static String userNotExists(String userName) {
             return String.format(USER_NOT_EXISTS, userName);
@@ -30,6 +34,18 @@ public class Constants {
 
         static String userNotExistsById(Integer sysUserId) {
             return String.format(USER_NOT_EXISTS_BY_ID, sysUserId);
+        }
+
+        static String agencyNotExistsById(Integer agencyId) {
+            return String.format(AGENCY_NOT_EXISTS, agencyId);
+        }
+
+        static String passwordMinLength() {
+            return String.format("密码长度不能小于%s位", PASSWORD_MIN_LENGTH);
+        }
+
+        static String roleNotExistsById(int id) {
+            return String.format("角色不存在, id: %s", id);
         }
     }
 

@@ -23,6 +23,7 @@ import io.github.javagossip.opendsp.dashboard.constant.Constants.ErrorMessages;
 import io.github.javagossip.opendsp.dashboard.dto.AdvertiserAuditDto;
 import io.github.javagossip.opendsp.dashboard.dto.AdvertiserDto;
 import io.github.javagossip.opendsp.dashboard.dto.AdvertiserPasswordDto;
+import io.github.javagossip.opendsp.dashboard.factory.SysUserFactory;
 import io.github.javagossip.opendsp.dashboard.util.PasswordUtil;
 import io.github.javagossip.opendsp.dashboard.validator.Validators;
 import io.github.javagossip.opendsp.model.Advertiser;
@@ -50,13 +51,18 @@ public class AdvertiserService {
     public void addAdvertiser(Advertiser advertiser) {
         LOGGER.info("addAdvertiser:{}", advertiser);
         Validators.validate(advertiser);
-        if (advertiserExists(advertiser.getName())) {
+        boolean isNew = advertiser.getId() == null;
+        if (isNew && advertiserExists(advertiser.getName())) {
             throw new BizException(String.format(ErrorMessages.ADVERTISER_EXISTS, advertiser.getName()));
         }
         //重新设置加密之后的密码
-        advertiser.setPassword(PasswordUtil.genPwd(advertiser.getPassword()));
+        if (isNew) {
+            advertiser.setPassword(PasswordUtil.genPwd(advertiser.getPassword()));
+        }
+        SysUser sysUser = SysUserFactory.withAdvertiser(advertiser);
+        sysUserDao.saveOrUpdate(sysUser);
+        advertiser.setSysUserId(sysUser.getId());
         advertiserDao.saveOrUpdate(advertiser);
-        sysUserService.addOrUpdateUser(SysUser.builder().name(advertiser.getName()).build());
     }
 
     public Page<Advertiser> listAdvertisersByName(String name, int page, int size) {
@@ -141,6 +147,7 @@ public class AdvertiserService {
         return advertiserDao.exists(advertiserDao.queryChain().eq(Advertiser::getId, id));
     }
 
+    @Transactional
     public void updatePassword(AdvertiserPasswordDto advertiserPasswordDto) {
         LOGGER.info("广告主更新密码, 广告主id: {}", advertiserPasswordDto.getAdvertiserId());
         Validators.validate(advertiserPasswordDto);
@@ -159,6 +166,8 @@ public class AdvertiserService {
             throw new BizException("旧密码输入不正确");
         }
         String newPwd = PasswordUtil.genPwd(advertiserPasswordDto.getNewPassword());
-        sysUserService.addOrUpdateUser(SysUser.builder().id(advertiser.getSysUserId()).password(newPwd).build());
+        //advertiser.setPassword(newPwd);
+        advertiserDao.updateById(Advertiser.builder().id(advertiser.getId()).password(newPwd).build());
+        sysUserDao.updateById(SysUser.builder().id(sysUser.getId()).password(newPwd).build());
     }
 }
