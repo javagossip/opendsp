@@ -40,7 +40,7 @@ public class MyBatisCodeGenerator {
 
         //设置表前缀和只生成哪些表
         //globalConfig.setTablePrefix("tb_");
-        globalConfig.setGenerateTable("agency");
+        globalConfig.setGenerateTable("sys_menu");
 
         //设置生成 entity 并启用 Lombok
         globalConfig.setEntityGenerateEnable(true);
@@ -65,6 +65,10 @@ public class MyBatisCodeGenerator {
         globalConfig.setServicePackage("io.github.javagossip.opendsp.dao");
         globalConfig.setServiceImplPackage("io.github.javagossip.opendsp.dao.impl");
         globalConfig.setEntityPackage("io.github.javagossip.opendsp.model");
+
+        globalConfig.setServiceOverwriteEnable(true);
+        globalConfig.setServiceImplOverwriteEnable(true);
+        globalConfig.setMapperOverwriteEnable(true);
         globalConfig.setEntityOverwriteEnable(true);
         return globalConfig;
     }

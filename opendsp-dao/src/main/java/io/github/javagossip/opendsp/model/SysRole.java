@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  * 角色表 实体类。
  *
  * @author weiping wang
- * @since 2025-03-21
+ * @since 2025-04-09
  */
 @Data
 @Builder
@@ -41,7 +41,7 @@ public class SysRole implements Serializable {
     /**
      * 描述
      */
-    private String description;
+    private String remark;
 
     private Integer status;
 

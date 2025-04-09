@@ -2,15 +2,15 @@ package io.github.javagossip.opendsp.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import com.mybatisflex.core.BaseMapper;
-import io.github.javagossip.opendsp.model.SysRole;
+import io.github.javagossip.opendsp.model.SysMenu;
 
 /**
- * 角色表 映射层。
+ * 系统菜单表 映射层。
  *
  * @author weiping wang
  * @since 2025-04-09
  */
 @Mapper
-public interface SysRoleMapper extends BaseMapper<SysRole> {
+public interface SysMenuMapper extends BaseMapper<SysMenu> {
 
 }

@@ -13,7 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 系统权限表（支持菜单/按钮/API） 实体类。
+ * 系统菜单表 实体类。
  *
  * @author weiping wang
  * @since 2025-04-09
@@ -22,41 +22,66 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table("sys_permission")
-public class SysPermission implements Serializable {
+@Table("sys_menu")
+public class SysMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 权限唯一标识
+     * 主键ID
      */
     @Id(keyType = KeyType.Auto)
     private Integer id;
 
     /**
-     * 权限名称（如：用户管理）
+     * 父菜单ID，0表示顶级菜单
+     */
+    private Integer parentId;
+
+    /**
+     * 菜单名称
      */
     private String name;
 
     /**
-     * 权限类型（1=菜单 2=按钮 3=API）
+     * 前端路由路径
      */
-    private Integer type;
+    private String path;
 
     /**
-     * 权限描述
+     * 前端组件路径
      */
-    private String remark;
+    private String component;
 
     /**
-     * 权限标识（如 user:add, GET:/api/users）
+     * 菜单图标
      */
-    private String key;
+    private String icon;
 
     /**
-     * 状态（0=禁用 1=启用）
+     * 权限标识（如 user:view）
+     */
+    private String permission;
+
+    /**
+     * 显示顺序（越小越靠前）
+     */
+    private Integer orderNum;
+
+    /**
+     * 是否显示：1=显示，0=隐藏
+     */
+    private Integer visible;
+
+    /**
+     * 状态：1=启用，0=禁用
      */
     private Integer status;
+
+    /**
+     * 备注
+     */
+    private String remark;
 
     /**
      * 创建时间
@@ -64,7 +89,7 @@ public class SysPermission implements Serializable {
     private LocalDateTime createTime;
 
     /**
-     * 最后更新时间
+     * 修改时间
      */
     private LocalDateTime updateTime;
 

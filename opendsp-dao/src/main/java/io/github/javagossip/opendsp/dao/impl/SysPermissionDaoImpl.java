@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * 系统权限表（支持菜单/按钮/API） 服务层实现。
  *
  * @author weiping wang
- * @since 2025-03-21
+ * @since 2025-04-09
  */
 @Service
 public class SysPermissionDaoImpl extends ServiceImpl<SysPermissionMapper, SysPermission>  implements SysPermissionDao{
