@@ -1,6 +1,9 @@
 package io.github.javagossip.opendsp.dao;
 
+import java.util.List;
+
 import com.mybatisflex.core.service.IService;
+
 import io.github.javagossip.opendsp.model.SysPermission;
 
 /**
@@ -11,4 +14,5 @@ import io.github.javagossip.opendsp.model.SysPermission;
  */
 public interface SysPermissionDao extends IService<SysPermission> {
 
+    List<SysPermission> selectPermissionsByUserId(Integer userId);
 }

@@ -6,6 +6,8 @@ import io.github.javagossip.opendsp.mapper.SysRoleMapper;
 import io.github.javagossip.opendsp.dao.SysRoleDao;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 角色表 服务层实现。
  *
@@ -15,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysRoleDaoImpl extends ServiceImpl<SysRoleMapper, SysRole>  implements SysRoleDao{
 
+    @Override
+    public List<SysRole> selectRolesByUserId(Integer userId) {
+        return getMapper().selectRolesByUserId(userId);
+    }
 }

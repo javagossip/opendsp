@@ -2,14 +2,13 @@ package io.github.javagossip.opendsp.dashboard.controller;
 
 import javax.annotation.Resource;
 
-import ai.houyi.dorado.rest.annotation.RequestBody;
-
 import com.mybatisflex.core.paginate.Page;
 
 import ai.houyi.dorado.rest.annotation.Controller;
 import ai.houyi.dorado.rest.annotation.GET;
 import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
+import ai.houyi.dorado.rest.annotation.RequestBody;
 import ai.houyi.dorado.rest.annotation.RequestParam;
 import io.github.javagossip.opendsp.dashboard.service.SysPermissionService;
 import io.github.javagossip.opendsp.model.SysPermission;
@@ -34,8 +33,8 @@ public class SysPermissionController {
     @GET
     @ApiOperation("分页查询权限")
     public Page<SysPermission> listPermissions(@RequestParam String name,
-            @RequestParam int page,
-            @RequestParam int size) {
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
         return permissionService.listPermissions(name, page, size);
     }
 
@@ -44,5 +43,12 @@ public class SysPermissionController {
     @ApiOperation("删除权限")
     public void deletePermission(@RequestParam int id) {
         permissionService.deletePermission(id);
+    }
+
+    @GET
+    @Path("/get")
+    @ApiOperation("根据id查看权限")
+    public SysPermission getPermission(@RequestParam int id) {
+        return permissionService.getPermission(id);
     }
 }

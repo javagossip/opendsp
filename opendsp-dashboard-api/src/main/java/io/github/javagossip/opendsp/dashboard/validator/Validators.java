@@ -12,6 +12,8 @@ import io.github.javagossip.opendsp.dashboard.dto.AgencyPasswordDto;
 import io.github.javagossip.opendsp.model.AdGroup;
 import io.github.javagossip.opendsp.model.Advertiser;
 import io.github.javagossip.opendsp.model.Agency;
+import io.github.javagossip.opendsp.model.SysMenu;
+import io.github.javagossip.opendsp.model.SysPermission;
 import io.github.javagossip.opendsp.model.SysUser;
 
 /**
@@ -89,5 +91,21 @@ public class Validators {
         Preconditions.checkNotNull(agencyPasswordDto.getAgencyId(), "代理商id不能为空");
         Preconditions.checkArgument(agencyPasswordDto.getNewPassword().length() >= Constants.PASSWORD_MIN_LENGTH,
                 ErrorMessages.passwordMinLength());
+    }
+
+    public static void validate(SysMenu menu) {
+        Preconditions.checkNotNull(menu);
+        Preconditions.checkArgument(StringUtils.isNotBlank(menu.getName()), "菜单名称不能为空");
+        Preconditions.checkArgument(StringUtils.isNotBlank(menu.getPath()), "菜单URL不能为空");
+        Preconditions.checkArgument(StringUtils.isNotBlank(menu.getIcon()), "菜单图标不能为空");
+        Preconditions.checkArgument(StringUtils.isNotBlank(menu.getComponent()), "菜单组件不能为空");
+        Preconditions.checkArgument(StringUtils.isNotBlank(menu.getPermission()), "菜单权限不能为空");
+    }
+
+    public static void validate(SysPermission permission) {
+        Preconditions.checkNotNull(permission);
+        Preconditions.checkArgument(StringUtils.isNotBlank(permission.getName()), "权限名称不能为空");
+        Preconditions.checkArgument(StringUtils.isNotBlank(permission.getKey()), "权限key不能为空");
+        Preconditions.checkNotNull(permission.getType(), "权限类型不能为空");
     }
 }

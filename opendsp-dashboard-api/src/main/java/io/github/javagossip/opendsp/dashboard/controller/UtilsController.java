@@ -6,8 +6,10 @@ import org.jasypt.encryption.StringEncryptor;
 
 import ai.houyi.dorado.rest.annotation.Controller;
 import ai.houyi.dorado.rest.annotation.GET;
+import ai.houyi.dorado.rest.annotation.POST;
 import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.dorado.rest.annotation.RequestParam;
+import ai.houyi.dorado.rest.http.MultipartFile;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -27,5 +29,12 @@ public class UtilsController {
     @ApiOperation("加密给定的字符串")
     public String encrypt(@RequestParam String text) {
         return stringEncryptor.encrypt(text);
+    }
+
+    @POST
+    @Path("/upload")
+    @ApiOperation("上传文件并返回文件访问url")
+    public String uploadFile(MultipartFile[] files) {
+        return null;
     }
 }

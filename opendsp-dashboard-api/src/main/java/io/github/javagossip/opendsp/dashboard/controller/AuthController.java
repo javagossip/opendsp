@@ -24,7 +24,7 @@ public class AuthController {
     @Path("/login")
     @ApiOperation("用户登录")
     public AuthInfoDto login(@RequestBody AuthRequest authRequest) {
-        return authService.signIn(authRequest);
+        return authService.auth(authRequest);
 
     }
 
@@ -32,6 +32,6 @@ public class AuthController {
     @Path("/logout")
     @ApiOperation("用户登出")
     public void logout() {
-        authService.signOut();
+        authService.logout();
     }
 }

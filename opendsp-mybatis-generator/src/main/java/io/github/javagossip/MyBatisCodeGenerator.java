@@ -40,7 +40,7 @@ public class MyBatisCodeGenerator {
 
         //设置表前缀和只生成哪些表
         //globalConfig.setTablePrefix("tb_");
-        globalConfig.setGenerateTable("sys_menu");
+        globalConfig.setGenerateTable("sys_role_menu");
 
         //设置生成 entity 并启用 Lombok
         globalConfig.setEntityGenerateEnable(true);

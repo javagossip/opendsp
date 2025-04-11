@@ -1,12 +1,13 @@
 package io.github.javagossip.opendsp.dashboard.helper;
 
 
-import io.github.javagossip.opendsp.model.SysUser;
+import io.github.javagossip.opendsp.dashboard.dto.AuthInfoDto;
 
 public class AuthContext {
+
     private static final AuthContext AUTH_CONTEXT = new AuthContext();
 
-    private final ThreadLocal<SysUser> authUserHolder = new ThreadLocal<>();
+    private final ThreadLocal<AuthInfoDto> authInfoHolder = new ThreadLocal<>();
 
     private AuthContext() {
     }
@@ -15,7 +16,15 @@ public class AuthContext {
         return AUTH_CONTEXT;
     }
 
-    public static SysUser getAuthUser() {
-        return get().authUserHolder.get();
+    public static AuthInfoDto getAuthInfo() {
+        return get().authInfoHolder.get();
+    }
+
+    public void setAuthInfo(AuthInfoDto authInfo) {
+        authInfoHolder.set(authInfo);
+    }
+
+    public void clear() {
+        authInfoHolder.remove();
     }
 }

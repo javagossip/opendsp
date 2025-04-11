@@ -35,6 +35,8 @@
         <guava.version>33.4.0-jre</guava.version>
         <jbcrypt.version>0.4</jbcrypt.version>
         <jasypt-spring-boot.version>3.0.5</jasypt-spring-boot.version>
+        <fastjson2.version>2.0.53</fastjson2.version>
+        <rocketmq-v5-client-spring-boot.version>2.3.3</rocketmq-v5-client-spring-boot.version>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <env.id>dev</env.id>
@@ -73,6 +75,16 @@
                 <groupId>com.github.ulisesbocchio</groupId>
                 <artifactId>jasypt-spring-boot-starter</artifactId>
                 <version>${jasypt-spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.fastjson2</groupId>
+                <artifactId>fastjson2</artifactId>
+                <version>${fastjson2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.rocketmq</groupId>
+                <artifactId>rocketmq-v5-client-spring-boot-starter</artifactId>
+                <version>${rocketmq-v5-client-spring-boot.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

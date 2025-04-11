@@ -1,10 +1,10 @@
 package io.github.javagossip.opendsp.dashboard.constant;
 
-import java.util.UUID;
-
 public class Constants {
 
     public static final int PASSWORD_MIN_LENGTH = 6;
+
+    public static final int DEFAULT_TOKEN_EXPIRE_TIME = 3600 * 24 * 7; // 7天
 
     public interface ErrorCodes {
 
@@ -23,6 +23,8 @@ public class Constants {
         String ADVERTISER_UNBIND_SYS_USER = "广告主未绑定系统用户账号";
         String AGENCY_NOT_EXISTS = "代理商不存在,ID：[%s]";
         String AGENCY_UNBIND_SYS_USER = "代理商未绑定系统用户账号";
+        String MENU_ID_IS_NULL = "菜单id不能为空";
+        String MENU_HAS_SUB_MENUS = "菜单下有子菜单，请先删除子菜单";
 
         static String userNotExists(String userName) {
             return String.format(USER_NOT_EXISTS, userName);
@@ -72,8 +74,8 @@ public class Constants {
 
         String KEY_AUTH_TOKEN = "auth:token:%s";
 
-        public static String authToken() {
-            return String.format(KEY_AUTH_TOKEN, UUID.randomUUID().toString().replace("-", ""));
+        static String authTokenKey(String token) {
+            return String.format(KEY_AUTH_TOKEN, token);
         }
     }
 }

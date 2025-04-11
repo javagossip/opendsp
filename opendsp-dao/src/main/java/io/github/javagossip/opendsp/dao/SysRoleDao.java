@@ -1,6 +1,9 @@
 package io.github.javagossip.opendsp.dao;
 
+import java.util.List;
+
 import com.mybatisflex.core.service.IService;
+
 import io.github.javagossip.opendsp.model.SysRole;
 
 /**
@@ -11,4 +14,5 @@ import io.github.javagossip.opendsp.model.SysRole;
  */
 public interface SysRoleDao extends IService<SysRole> {
 
+    List<SysRole> selectRolesByUserId(Integer userId);
 }

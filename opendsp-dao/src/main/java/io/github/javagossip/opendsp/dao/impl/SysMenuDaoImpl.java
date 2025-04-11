@@ -6,6 +6,8 @@ import io.github.javagossip.opendsp.mapper.SysMenuMapper;
 import io.github.javagossip.opendsp.dao.SysMenuDao;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 系统菜单表 服务层实现。
  *
@@ -15,4 +17,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysMenuDaoImpl extends ServiceImpl<SysMenuMapper, SysMenu>  implements SysMenuDao{
 
+    @Override
+    public List<SysMenu> selectMenusByUserId(Integer userId) {
+        return getMapper().selectListByUserId(userId);
+    }
 }

@@ -13,10 +13,12 @@ import ai.houyi.dorado.rest.annotation.RequestParam;
 import io.github.javagossip.opendsp.dashboard.dto.UserRolesDto;
 import io.github.javagossip.opendsp.dashboard.service.SysUserService;
 import io.github.javagossip.opendsp.model.SysUser;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @Controller
 @Path("/users")
+@Api(tags = "系统用户管理")
 public class SysUserController {
 
     @Resource
@@ -31,7 +33,9 @@ public class SysUserController {
 
     @GET
     @ApiOperation("根据用户名分页查询用户")
-    public Page<SysUser> listUsers(@RequestParam String name, @RequestParam int page, @RequestParam int size) {
+    public Page<SysUser> listUsers(@RequestParam String name,
+            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "10") int size) {
         return userService.listUsers(name, page, size);
     }
 
