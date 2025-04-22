@@ -11,7 +11,7 @@ import ai.houyi.dorado.rest.annotation.Path;
 import ai.houyi.dorado.rest.annotation.RequestBody;
 import ai.houyi.dorado.rest.annotation.RequestParam;
 import io.github.javagossip.opendsp.dashboard.dto.SysMenuDto;
-import io.github.javagossip.opendsp.dashboard.helper.AuthContext;
+import io.github.javagossip.opendsp.dashboard.dto.AuthContext;
 import io.github.javagossip.opendsp.dashboard.service.SysMenuService;
 import io.github.javagossip.opendsp.dashboard.validator.Validators;
 import io.github.javagossip.opendsp.model.SysMenu;

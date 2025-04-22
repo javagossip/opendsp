@@ -18,6 +18,7 @@ import io.github.javagossip.opendsp.core.exception.BizException;
 import io.github.javagossip.opendsp.dao.AdvertiserAdxDao;
 import io.github.javagossip.opendsp.dao.AdvertiserDao;
 import io.github.javagossip.opendsp.dao.AdvertiserQualificationDao;
+import io.github.javagossip.opendsp.dao.AdvertiserRechargeDao;
 import io.github.javagossip.opendsp.dao.SysUserDao;
 import io.github.javagossip.opendsp.dashboard.constant.Constants.ErrorMessages;
 import io.github.javagossip.opendsp.dashboard.dto.AdvertiserAuditDto;
@@ -29,6 +30,7 @@ import io.github.javagossip.opendsp.dashboard.validator.Validators;
 import io.github.javagossip.opendsp.model.Advertiser;
 import io.github.javagossip.opendsp.model.AdvertiserAdx;
 import io.github.javagossip.opendsp.model.AdvertiserQualification;
+import io.github.javagossip.opendsp.model.AdvertiserRecharge;
 import io.github.javagossip.opendsp.model.SysUser;
 
 @Service
@@ -46,6 +48,8 @@ public class AdvertiserService {
     private SysUserService sysUserService;
     @Resource
     private SysUserDao sysUserDao;
+    @Resource
+    private AdvertiserRechargeDao advertiserRechargeDao;
 
     @Transactional
     public void addAdvertiser(Advertiser advertiser) {
@@ -169,5 +173,13 @@ public class AdvertiserService {
         //advertiser.setPassword(newPwd);
         advertiserDao.updateById(Advertiser.builder().id(advertiser.getId()).password(newPwd).build());
         sysUserDao.updateById(SysUser.builder().id(sysUser.getId()).password(newPwd).build());
+    }
+
+    public void recharge(AdvertiserRecharge advertiserRecharge) {
+        LOGGER.info("广告主充值, 广告主id: {}, 充值金额: {}",
+                advertiserRecharge.getAdvertiserId(),
+                advertiserRecharge.getAmount());
+        advertiserRechargeDao.save(advertiserRecharge);
+        //TODO 广告主充值成功之后，需要发送通知，更新缓存中的广告主余额
     }
 }

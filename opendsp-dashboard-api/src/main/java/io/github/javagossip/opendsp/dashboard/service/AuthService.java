@@ -16,11 +16,10 @@ import io.github.javagossip.opendsp.dao.SysPermissionDao;
 import io.github.javagossip.opendsp.dao.SysRoleDao;
 import io.github.javagossip.opendsp.dao.SysUserDao;
 import io.github.javagossip.opendsp.dashboard.constant.Constants.ErrorMessages;
+import io.github.javagossip.opendsp.dashboard.dto.AuthContext;
 import io.github.javagossip.opendsp.dashboard.dto.AuthInfoDto;
 import io.github.javagossip.opendsp.dashboard.dto.AuthRequest;
 import io.github.javagossip.opendsp.dashboard.dto.SysMenuDto;
-import io.github.javagossip.opendsp.dashboard.helper.AuthContext;
-import io.github.javagossip.opendsp.dashboard.repo.TokenRepository;
 import io.github.javagossip.opendsp.dashboard.util.PasswordUtil;
 import io.github.javagossip.opendsp.dashboard.util.TokenGenerator;
 import io.github.javagossip.opendsp.model.SysPermission;
@@ -36,8 +35,9 @@ public class AuthService {
 
     @Resource
     private SysUserService userService;
-    @Resource
-    private TokenRepository tokenRepository;
+    //这里默认使用redis作为token存储，如果使用其他存储方式，请修改为对应的{@link TokenService}实现类
+    @Resource(name = "redisTs")
+    private TokenService tokenService;
     @Resource
     private SysUserDao sysUserDao;
     @Resource
@@ -67,13 +67,13 @@ public class AuthService {
                 .permissions(userPermissions)
                 .build();
         LOGGER.info("用户{}登录成功, token:{}", sysUser.getName(), authInfoDto.getToken());
-        tokenRepository.saveToken(authInfoDto.getToken(), authInfoDto);
+        tokenService.saveToken(authInfoDto.getToken(), authInfoDto);
         return authInfoDto;
     }
 
     public void verifyToken(String token) {
         Preconditions.checkArgument(StringUtils.isNotBlank(token), "token不能为空");
-        AuthInfoDto authInfo = tokenRepository.getAndRefreshToken(token);
+        AuthInfoDto authInfo = tokenService.getAndRefreshToken(token);
         if (authInfo == null) {
             throw new BizException("token无效或已过期");
         }
@@ -86,6 +86,6 @@ public class AuthService {
             return;
         }
         AuthContext.get().clear();
-        tokenRepository.removeToken(authInfo.getToken());
+        tokenService.removeToken(authInfo.getToken());
     }
 }

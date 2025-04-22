@@ -18,19 +18,20 @@ import io.swagger.annotations.ApiOperation;
 
 @Controller
 @Path("/agencies")
-@Api(tags = "Agency Management")
+@Api(tags = "广告代理商管理")
 public class AgencyController {
 
     @Resource
     private AgencyService agencyService;
 
     @POST
-    @ApiOperation("Add or update agency")
+    @ApiOperation("新建或更新代理商")
     public void addOrUpdateAgency(@RequestBody Agency agency) {
         agencyService.addOrUpdateAgency(agency);
     }
 
     @GET
+    @ApiOperation("分页获取代理商列表")
     public Page<Agency> pageListAgencies(@RequestParam String name,
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "20") int size) {
@@ -39,29 +40,29 @@ public class AgencyController {
 
     @GET
     @Path("/get")
-    @ApiOperation("Get agency by id")
-    public Agency getAgency(@RequestParam int id) {
+    @ApiOperation("查看代理商信息")
+    public Agency getAgency(@RequestParam Integer id) {
         return agencyService.getAgency(id);
     }
 
     @POST
     @Path("/delete")
-    @ApiOperation("Delete agency by id")
-    public void deleteAgency(@RequestParam int id) {
+    @ApiOperation("删除代理商")
+    public void deleteAgency(@RequestParam Integer id) {
         agencyService.deleteAgency(id);
     }
 
     @POST
     @Path("/enable")
-    @ApiOperation("Enable agency by id")
-    public void enableAgency(@RequestParam int id) {
+    @ApiOperation("代理商启用")
+    public void enableAgency(@RequestParam Integer id) {
         agencyService.enableAgency(id);
     }
 
     @POST
     @Path("/disable")
-    @ApiOperation("Disable agency by id")
-    public void disableAgency(@RequestParam int id) {
+    @ApiOperation("代理商禁用")
+    public void disableAgency(@RequestParam Integer id) {
         agencyService.disableAgency(id);
     }
 

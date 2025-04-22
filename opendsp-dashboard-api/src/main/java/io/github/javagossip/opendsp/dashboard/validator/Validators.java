@@ -9,6 +9,7 @@ import io.github.javagossip.opendsp.dashboard.constant.Constants.ErrorMessages;
 import io.github.javagossip.opendsp.dashboard.dto.AdvertiserAuditDto;
 import io.github.javagossip.opendsp.dashboard.dto.AdvertiserPasswordDto;
 import io.github.javagossip.opendsp.dashboard.dto.AgencyPasswordDto;
+import io.github.javagossip.opendsp.dashboard.dto.DictItemDto;
 import io.github.javagossip.opendsp.model.AdGroup;
 import io.github.javagossip.opendsp.model.Advertiser;
 import io.github.javagossip.opendsp.model.Agency;
@@ -28,10 +29,10 @@ public class Validators {
         Preconditions.checkNotNull(adGroup);
         Preconditions.checkNotNull(adGroup.getCampaignId(), "所属推广计划id不能为空");
         Preconditions.checkNotNull(adGroup.getName(), "广告组名称不能为空");
-        Preconditions.checkNotNull(adGroup.getDailyBudget(), "日预算不能为空");
+        Preconditions.checkNotNull(adGroup.getBudget(), "日预算不能为空");
         Preconditions.checkNotNull(adGroup.getAdvertiserId(), ErrorMessages.ADVERTISER_ID_IS_NULL);
         Preconditions.checkNotNull(adGroup.getPromotionType(), "推广类型不能为空");
-        Preconditions.checkNotNull(adGroup.getBidMode(), "出价方式不能为空");
+        Preconditions.checkNotNull(adGroup.getBiddingMethod(), "出价方式不能为空");
         Preconditions.checkNotNull(adGroup.getBidPrice(), "出价不能为空");
     }
 
@@ -107,5 +108,12 @@ public class Validators {
         Preconditions.checkArgument(StringUtils.isNotBlank(permission.getName()), "权限名称不能为空");
         Preconditions.checkArgument(StringUtils.isNotBlank(permission.getKey()), "权限key不能为空");
         Preconditions.checkNotNull(permission.getType(), "权限类型不能为空");
+    }
+
+    public static void validateDictItem(DictItemDto dict) {
+        Preconditions.checkNotNull(dict, "字典不能为空");
+        Preconditions.checkArgument(StringUtils.isNotBlank(dict.getDictType()), "字典类型不能为空");
+        Preconditions.checkArgument(StringUtils.isNotBlank(dict.getKey()), "字典key不能为空");
+        Preconditions.checkArgument(StringUtils.isNotBlank(dict.getValue()), "字典value不能为空");
     }
 }

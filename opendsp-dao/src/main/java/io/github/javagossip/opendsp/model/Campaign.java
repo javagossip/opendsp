@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  * 推广计划 实体类。
  *
  * @author weiping wang
- * @since 2025-03-21
+ * @since 2025-04-18
  */
 @Data
 @Builder
@@ -43,7 +43,7 @@ public class Campaign implements Serializable {
     /**
      * 每日预算
      */
-    private Integer dailyBudget;
+    private Integer budget;
 
     /**
      * 推广开始时间
@@ -68,12 +68,12 @@ public class Campaign implements Serializable {
     /**
      * 默认曝光监测地址，下层广告组如果设置了会覆盖这个配置
      */
-    private String impTrackingUrl;
+    private String impTrackingUrls;
 
     /**
      * 默认点击监测地址，下层设置会覆盖
      */
-    private String clickTrackingUrl;
+    private String clickTrackingUrls;
 
     private LocalDateTime createTime;
 

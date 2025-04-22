@@ -1,11 +1,16 @@
 package io.github.javagossip.opendsp.model;
 
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.apache.ibatis.type.JdbcType;
+
+import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
+import com.mybatisflex.core.handler.Fastjson2TypeHandler;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,7 +21,7 @@ import lombok.NoArgsConstructor;
  * 广告组-广告投放策略设置 实体类。
  *
  * @author weiping wang
- * @since 2025-03-21
+ * @since 2025-04-18
  */
 @Data
 @Builder
@@ -29,18 +34,26 @@ public class AdGroup implements Serializable {
 
     @Id(keyType = KeyType.Auto)
     private Integer id;
-    /**
-     * 广告主id
-     */
-    private Integer advertiserId;
-    /**
-     * 推广计划id
-     */
-    private Integer campaignId;
+
     /**
      * 广告组名称
      */
     private String name;
+
+    /**
+     * 活动id
+     */
+    private Integer campaignId;
+
+    /**
+     * 广告主id
+     */
+    private Integer advertiserId;
+
+    /**
+     * 广告位id
+     */
+    private Integer adSlotId;
 
     /**
      * 投放开始日期
@@ -60,12 +73,17 @@ public class AdGroup implements Serializable {
     /**
      * 每日投放预算
      */
-    private Integer dailyBudget;
+    private Integer budget;
+
+    /**
+     * 投放模式：匀速 or 正常
+     */
+    private Integer deliveryMode;
 
     /**
      * 出价方式： 1-CPM,2-CPC,3-CPA,4-oCPM,5-oCPC
      */
-    private Integer bidMode;
+    private Integer biddingMethod;
 
     /**
      * 广告出价，单位: 分
@@ -73,99 +91,91 @@ public class AdGroup implements Serializable {
     private Integer bidPrice;
 
     /**
-     * 安卓应用包名或者ios应用id
-     */
-    private String bundle;
-
-    /**
      * 落地页地址
      */
     private String landingUrl;
 
     /**
-     * 推广类型
+     * 推广应用的appid or bundle
+     */
+    private String bundle;
+
+    /**
+     * 推广类型, 参见sys_dict表中的dict_type为promotion_type的字典项
      */
     private Integer promotionType;
 
     /**
      * 频次控制, 格式：{"period":"day","freq":3}
      */
-    private String freqCapping;
+    @Column(jdbcType = JdbcType.VARCHAR,
+            typeHandler = Fastjson2TypeHandler.class)
+    private FreqCapping freqCapping;
 
     /**
      * 私有竞价标识，包括PDB,PD,PA
      */
-    private Integer dealid;
+    private String dealId;
 
     /**
-     * adx定向
+     * 定向交易平台，比如定向爱奇艺
      */
     private String targetAdx;
 
     /**
-     * 年龄定向, 年龄段枚举
+     * 媒体定向，多个媒体id按逗号分隔
      */
-    private Integer targetAge;
+    private String targetMedia;
 
     /**
-     * 性别定向，性别枚举
+     * 地域定向，多个逗号分隔
      */
-    private Integer targetGender;
+    private String targetRegion;
 
     /**
-     * 地域定向，地域包id
+     * 地理位置定向，json数组格式
      */
-    private Integer targetArea;
+    @Column(jdbcType = JdbcType.VARCHAR,
+            typeHandler = Fastjson2TypeHandler.class)
+    private List<GeoLocation> targetGeoLocation;
 
     /**
-     * 地理位置定向
+     * 操作系统定向，多个逗号分隔，操作系统枚举
      */
-    private Integer targetGeoLocation;
+    private String targetOs;
 
     /**
-     * 商圈定向，商圈id
+     * 电信运营商定向，多个逗号分隔
      */
-    private Integer targetBusinessDistrict;
+    private String targetCarrier;
 
     /**
-     * 操作系统定向，操作系统枚举
+     * 设备定向，多个逗号分隔
      */
-    private Integer targetOs;
+    private String targetDeviceType;
 
     /**
-     * 设备定向
+     * 定向设备生产商， 多个按逗号分隔
      */
-    private Integer targetDeviceType;
+    private String targetDeviceMake;
 
     /**
-     * 定向设备品牌， 品牌枚举
+     * 定向设备型号
      */
-    private Integer targetDeviceBrand;
-
-    private Integer targetDeviceModel;
+    private String targetDeviceModel;
 
     /**
      * 网络定向: wifi,2G,3G,4G,5G
      */
-    private Integer targetNetworkType;
+    private String targetConnectionType;
 
     /**
-     * 指定设备定向, 广告验证使用
-     */
-    private String targetDevice;
-
-    /**
-     * 人群定向, 人群包id
-     */
-    private Integer targetCustomAudience;
-
-    /**
-     * 曝光监测地址
+     * 曝光监测地址，多个逗号分隔
      */
     private String impTrackingUrls;
 
     /**
-     * 点击监测地址
+     * 点击监测地址，多个逗号分隔
      */
     private String clickTrackingUrls;
 

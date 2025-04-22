@@ -1,5 +1,9 @@
 package io.github.javagossip.opendsp.dashboard.constant;
 
+import java.util.Date;
+
+import org.apache.commons.lang3.time.DateFormatUtils;
+
 public class Constants {
 
     public static final int PASSWORD_MIN_LENGTH = 6;
@@ -25,6 +29,8 @@ public class Constants {
         String AGENCY_UNBIND_SYS_USER = "代理商未绑定系统用户账号";
         String MENU_ID_IS_NULL = "菜单id不能为空";
         String MENU_HAS_SUB_MENUS = "菜单下有子菜单，请先删除子菜单";
+        String DICT_TYPE_IS_NULL = "字典类型不能为空";
+        String DICT_TYPE_EXISTS = "字典类型已存在";
 
         static String userNotExists(String userName) {
             return String.format(USER_NOT_EXISTS, userName);
@@ -51,6 +57,12 @@ public class Constants {
         }
     }
 
+    public interface TimeWindow {
+        int DAY = 1;
+        int WEEK = 2;
+        int MONTH = 3;
+    }
+
     public interface UserTypes {
 
         //广告主
@@ -73,9 +85,35 @@ public class Constants {
     public interface RedisKeys {
 
         String KEY_AUTH_TOKEN = "auth:token:%s";
+        String KEY_ADVERTISER_BALANCE = "advertiser:balance:%s"; //advertiser:balance:{advertiserId}
+        String KEY_AGENCY_BALANCE = "agency:balance:%s"; //agency:balance:{agencyId}
+        String KEY_CAMPAIGN_BUDGET = "campaign:budget:%s:%s"; //campaign:budget:{campaignId}:{yyMMdd}
+        String KEY_ADGROUP_BUDGET = "adgroup:budget:%s:%s"; //adgroup:budget:{adgroupId}:{yyMMdd}
+        String KEY_CREATIVE_METRICS = "creative:metrics:%s:%s"; //creative:metrics:{creativeId}:{yyyyMMddHH}
 
-        static String authTokenKey(String token) {
+        static String authToken(String token) {
             return String.format(KEY_AUTH_TOKEN, token);
+        }
+
+        static String advertiserBalance(int advertiserId) {
+            return String.format(KEY_ADVERTISER_BALANCE, advertiserId);
+        }
+
+        static String agencyBalance(int agencyId) {
+            return String.format(KEY_AGENCY_BALANCE, agencyId);
+        }
+
+        static String campaignDailyBudget(int campaignId, Date date) {
+            return String.format(KEY_CAMPAIGN_BUDGET, campaignId, DateFormatUtils.format(date, "yyMMdd"));
+        }
+
+        static String adgroupDailyBudget(int adgroupId, Date date) {
+            return String.format(KEY_ADGROUP_BUDGET, adgroupId, DateFormatUtils.format(date, "yyMMdd"));
+        }
+
+        //广告创意每日统计数据
+        static String creativeMetrics(int creativeId, Date date) {
+            return String.format(KEY_CREATIVE_METRICS, creativeId);
         }
     }
 }

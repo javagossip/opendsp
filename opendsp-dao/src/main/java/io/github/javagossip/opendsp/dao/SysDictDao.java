@@ -4,10 +4,10 @@ import com.mybatisflex.core.service.IService;
 import io.github.javagossip.opendsp.model.SysDict;
 
 /**
- * 系统字典表 服务层。
+ * 通用字典表（支持类型和树结构) 服务层。
  *
  * @author weiping wang
- * @since 2025-03-21
+ * @since 2025-04-16
  */
 public interface SysDictDao extends IService<SysDict> {
 

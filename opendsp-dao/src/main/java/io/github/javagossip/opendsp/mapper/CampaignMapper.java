@@ -8,7 +8,7 @@ import io.github.javagossip.opendsp.model.Campaign;
  * 推广计划 映射层。
  *
  * @author weiping wang
- * @since 2025-03-21
+ * @since 2025-04-18
  */
 @Mapper
 public interface CampaignMapper extends BaseMapper<Campaign> {

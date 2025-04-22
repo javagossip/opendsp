@@ -12,7 +12,9 @@ import ai.houyi.dorado.swagger.EnableSwagger;
 @EnableDorado
 @EnableSwagger
 @MapperScan("io.github.javagossip.opendsp.mapper")
-@ComponentScan({"io.github.javagossip.opendsp", "ai.houyi.dorado.rest.controller.helper"})
+@ComponentScan({
+        "io.github.javagossip.opendsp", "ai.houyi.dorado.rest.controller.helper"
+})
 public class DashboardApiApplication {
 
     public static void main(String[] args) {

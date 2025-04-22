@@ -36,7 +36,10 @@
         <jbcrypt.version>0.4</jbcrypt.version>
         <jasypt-spring-boot.version>3.0.5</jasypt-spring-boot.version>
         <fastjson2.version>2.0.53</fastjson2.version>
-        <rocketmq-v5-client-spring-boot.version>2.3.3</rocketmq-v5-client-spring-boot.version>
+        <commons-lang3.version>3.17.0</commons-lang3.version>
+        <rocketmqv5-spring-boot-starter.version>2.3.3</rocketmqv5-spring-boot-starter.version>
+        <vavr.version>0.10.6</vavr.version>
+        <mybatis.version>3.5.19</mybatis.version>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <env.id>dev</env.id>
@@ -82,9 +85,19 @@
                 <version>${fastjson2.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${commons-lang3.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.rocketmq</groupId>
                 <artifactId>rocketmq-v5-client-spring-boot-starter</artifactId>
-                <version>${rocketmq-v5-client-spring-boot.version}</version>
+                <version>${rocketmqv5-spring-boot-starter.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

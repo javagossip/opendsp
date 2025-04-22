@@ -18,6 +18,7 @@ import io.github.javagossip.opendsp.dashboard.dto.AdvertiserPasswordDto;
 import io.github.javagossip.opendsp.dashboard.service.AdvertiserService;
 import io.github.javagossip.opendsp.model.Advertiser;
 import io.github.javagossip.opendsp.model.AdvertiserQualification;
+import io.github.javagossip.opendsp.model.AdvertiserRecharge;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -105,5 +106,12 @@ public class AdvertiserController {
     @ApiOperation("删除广告主资质")
     public void deleteAdvertiserQualification(@RequestParam Integer qualificationId) {
         advertiserService.deleteAdvertiserQualification(qualificationId);
+    }
+
+    @POST
+    @Path("/recharge")
+    @ApiOperation("广告主充值")
+    public void rechargeAdvertiser(@RequestBody AdvertiserRecharge advertiserRecharge) {
+        advertiserService.recharge(advertiserRecharge);
     }
 }

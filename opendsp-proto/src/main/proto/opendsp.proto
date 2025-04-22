@@ -1,0 +1,317 @@
+syntax = "proto3";
+
+package opendsp.models;
+
+option java_multiple_files = true;
+option java_package = "io.github.javagossip.opendsp.proto";
+option java_outer_classname = "OpenDspModels";
+option optimize_for = SPEED;
+
+//opendsp枚举定义
+enum OsType {
+  UNKNOWN_OS = 0;
+  IOS = 1;
+  ANDROID = 2;
+  HARMONYOS = 3;
+}
+
+//投放方式：匀速/加速
+enum DeliveryMode {
+  UNKNOWN_DELIVERY = 0;
+  SMOOTH_DELIVERY = 1;
+  SPEED_DELIVERY = 2;
+}
+
+//推广类型
+enum PromotionType {
+  UNKNOWN_PROMOTION = 0;
+  WEBSITE = 1;
+  ANDROID_APP = 2;
+  IOS_APP = 3;
+}
+
+//出价方式
+enum BiddingMethod {
+  UNKNOWN_BIDDING = 0;
+  CPC = 1;
+  CPM = 2;
+  CPA = 3;
+  OCPM = 4;
+  OCPC = 5;
+}
+
+enum DeviceType {
+  UNKNOWN_DEVICE_TYPE = 0;
+  PHONE = 1;
+  TABLET = 2;
+  CONNECTED_TV = 3;
+  PC = 4;
+}
+
+enum ConnectionType {
+  UNKNOWN_CONNECTION_TYPE = 0;
+  ETHERNET = 1;
+  WIFI = 2;
+  CELL_2G = 3;
+  CELL_3G = 4;
+  CELL_4G = 5;
+  CELL_5G = 6;
+}
+
+enum Carrier {
+  UNKNOWN_CARRIER = 0;
+  MOBILE = 1; //移动
+  UNICOM = 2;  // 联通
+  TELECOM = 3;  // 电信
+}
+
+//广告创意类型：图片/视频/音频/原生
+enum CreativeType {
+  UNKNOWN_CREATIVE_TYPE = 0;
+  BANNER = 1;
+  VIDEO = 2;
+  AUDIO = 3;
+  NATIVE = 4;
+  REWARD_VIDEO = 5;
+}
+
+//频次控制模型定义
+message FreqCapping {
+  optional uint32 frequency = 1;  //频次
+  optional uint32 time_window = 2;  // 控制周期
+}
+
+message Advertiser {
+  optional uint32 advertiser_id = 1;
+  optional uint32 agency_id = 2;
+  optional uint32 industry_id = 3;
+  optional uint32 status = 4;
+  optional double bid_weight = 5; //出价系数
+  optional double cost_weight = 6; //计费系数
+}
+
+message Campaign {
+  optional uint32 campaign_id = 1;
+  optional uint32 advertiser_id = 2;
+  optional uint32 status = 3;
+
+  repeated string clk_trackers = 4;
+  repeated string imp_trackers = 5;
+  //投放方式
+  optional DeliveryMode delivery_mode = 6;
+  optional FreqCapping freq_capping = 7;
+  optional uint64 budget = 8;
+}
+
+message AdGroup {
+  optional uint32 ad_group_id = 1;
+  optional uint32 campaign_id = 2;
+  optional DeliveryMode delivery_mode = 3;
+  optional PromotionType promotion_type = 4;
+  optional string landing_url = 5;
+  optional BiddingMethod cost_type = 6;
+  optional uint32 app_id = 7;
+  optional string pkg_name = 8;
+  optional uint32 status = 10;
+
+  optional AgesTarget target_ages = 11;   //年龄段定向
+  //optional TimeTarget target_time = 12;
+  //optional GenderTarget target_gender = 13;
+  optional LbsTarget target_lbs = 14;
+  optional OsTarget target_os = 15;     //操作系统定向
+  optional OsvTarget target_osv = 16;   //操作系统版本定向
+  optional MediaTarget target_media = 17;   //媒体定向
+  optional DeviceTypeTarget target_deviceType = 18; //设备类型定向
+  optional ConnectionTypeTarget target_connectionType = 19;
+  //optional WeatherTarget target_weather = 20;  //天气情况定向
+  optional SceneTarget target_scene = 21; //上网场景定向
+
+  //学历&商业兴趣定向
+  optional EducationTarget target_education = 22;
+  optional BizInterestTarget target_biz_interest = 24;
+
+  //app相关定向
+  //关键词&行为&app分类定向
+  optional KeywordTarget target_keyword = 25;
+  optional BehaviorTarget target_behavior = 26;
+  optional CategoryTarget target_category = 27;
+
+  optional string deal_id = 28;
+  repeated string imp_trackers = 29;
+  repeated string clk_trackers = 30;
+  optional double bid_price = 31;
+  map<string, string> ext = 32;
+
+  optional FreqCapping freq_capping = 33;
+  //广告投放排期
+  optional Scheduling scheduling = 34;
+
+  //学历定向
+  message EducationTarget {
+    optional uint32 education = 1;
+  }
+
+  message BizInterestTarget {
+    repeated uint32 biz_interest = 1;
+  }
+
+  message KeywordTarget {
+    repeated string keyword = 1;
+  }
+
+  message BehaviorTarget {
+    repeated uint32 behavior = 1;
+  }
+
+  message CategoryTarget {
+    repeated uint32 category = 1;
+  }
+
+  message ConnectionTypeTarget {
+    optional ConnectionType connection_type = 1;
+  }
+
+  message DeviceTypeTarget {
+    optional DeviceType device_type = 1;
+  }
+
+  message MediaTarget {
+    repeated string media_uuid = 1;
+  }
+
+  message OsvTarget {
+    optional string low_osv = 1;
+    optional string high_osv = 2;
+  }
+
+  message OsTarget {
+    optional OsType os = 1;
+  }
+
+  message AgesTarget {
+    optional uint64 ages = 1;
+  }
+
+  message TimeTarget {
+    optional uint64 begin_time = 1;
+    optional uint64 end_time = 2;
+    optional uint64 time_intervals = 3; //投放时间段
+  }
+
+  message LbsTarget {
+    optional uint32 area_code = 1;
+    optional string ip = 2;
+    optional float lat = 3;
+    optional float lon = 4;
+  }
+
+  //上网场景定向
+  message SceneTarget {
+    optional uint32 scene = 1;
+  }
+
+  message DeviceTarget {
+    repeated string didmd5 = 1;
+    optional string did_file_url = 2;
+  }
+
+  message Scheduling {
+    optional TimeTarget time_target = 1;
+    optional uint64 budget = 2;
+  }
+}
+
+message Creative {
+  optional uint32 creative_id = 1;
+  optional uint32 ad_unit_id = 2;
+  optional uint32 ad_position_id = 3;
+  //创意类型
+  optional CreativeType creative_type = 4;
+
+  oneof material_info {
+    string material_url = 5;
+    string html_snippet = 6;
+  }
+
+  optional uint32 status = 7;
+}
+
+//媒体刊例价
+message MediaFloorPrice {
+  optional string media_uuid = 1;
+  optional uint32 industry_id = 2;
+  optional OsType os = 3;
+  //optional RegionType area_level = 4;
+  optional uint32 ad_position_id = 5;
+  optional uint32 floor_price = 6;
+}
+
+//代理商价格
+message AgencyFloorPrice {
+  optional uint32 agency_id = 1;
+  optional MediaFloorPrice media_floor_price = 2;
+}
+
+//opendsp bidding service definition
+message UserInfo {
+  message Lbs {
+    optional string ip = 1;
+    optional uint32 area_code = 2;
+    optional float lat = 3;
+    optional float lon = 4;
+  }
+
+  //md5的设备id值,安卓是imei,ios是idfa
+  optional string didmd5 = 1;
+  optional string os = 2;
+  optional string osv = 3;
+  optional uint32 area_code = 4;
+  //设备类型：pc/pad/phone
+  optional DeviceType device_type = 6;
+  optional string ua = 7;
+  //设备制造商，如：Huawei, Apple, Samsung, Xiaomi
+  optional string device_make = 8;
+  //设备型号，如：iPhone, Xiaomi note2
+  optional string device_model = 9;
+  optional ConnectionType connection_type = 10;
+  optional Carrier carrier = 11;
+  optional Lbs lbs = 12;
+  map<string, string> ext = 13;
+}
+
+message PosInfo {
+  optional string app_id = 1;
+  optional string app_version = 2;
+  optional string pos_id = 3;
+  optional uint32 bid_floor = 4;
+  repeated string deal_id = 5;
+  optional CreativeType creative_type = 6;
+
+  oneof ad_spec {
+    BannerSpec banner_spec = 7;
+    VideoSpec video_spec = 8;
+    AudioSpec audio_spec = 9;
+    NativeSpec native_spec = 10;
+  }
+  map<string, string> ext = 11;
+
+  message BannerSpec {
+    optional uint32 height = 1;
+    optional uint32 width = 2;
+  }
+
+  message VideoSpec {
+    optional uint32 min_duration = 1;
+    optional uint32 max_duration = 2;
+  }
+
+  message AudioSpec {
+    optional uint32 min_duration = 1;
+    optional uint32 max_duration = 2;
+  }
+
+  message NativeSpec {
+    //媒体广告位id
+    optional string tag_id = 1;
+  }
+}

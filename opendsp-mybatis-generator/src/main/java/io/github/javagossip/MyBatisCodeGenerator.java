@@ -1,8 +1,13 @@
 package io.github.javagossip;
 
 import com.mybatisflex.codegen.Generator;
+import com.mybatisflex.codegen.config.ColumnConfig;
 import com.mybatisflex.codegen.config.GlobalConfig;
+import com.mybatisflex.core.handler.CommaSplitTypeHandler;
+import com.mybatisflex.core.handler.Fastjson2TypeHandler;
 import com.zaxxer.hikari.HikariDataSource;
+
+import org.apache.ibatis.type.JdbcType;
 
 public class MyBatisCodeGenerator {
 
@@ -16,7 +21,7 @@ public class MyBatisCodeGenerator {
         dataSource.setJdbcUrl(DB_URL);
         dataSource.setUsername("root");
         dataSource.setPassword("Hello%1234");
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
         //创建配置内容，两种风格都可以。
         GlobalConfig globalConfig = createGlobalConfigUseStyle1();
@@ -40,7 +45,7 @@ public class MyBatisCodeGenerator {
 
         //设置表前缀和只生成哪些表
         //globalConfig.setTablePrefix("tb_");
-        globalConfig.setGenerateTable("sys_role_menu");
+        globalConfig.setGenerateTable("ad_group","campaign");
 
         //设置生成 entity 并启用 Lombok
         globalConfig.setEntityGenerateEnable(true);
@@ -70,6 +75,36 @@ public class MyBatisCodeGenerator {
         globalConfig.setServiceImplOverwriteEnable(true);
         globalConfig.setMapperOverwriteEnable(true);
         globalConfig.setEntityOverwriteEnable(true);
+
+        ColumnConfig cc = ColumnConfig.create();
+        cc.setColumnName("freq_capping");
+        cc.setJdbcType(JdbcType.VARCHAR);
+        cc.setPropertyType("io.github.javagossip.opendsp.model.FreqCapping");
+        cc.setTypeHandler(Fastjson2TypeHandler.class);
+
+        ColumnConfig cc1 = ColumnConfig.create();
+        cc1.setColumnName("target_geo_location");
+        cc1.setJdbcType(JdbcType.VARCHAR);
+        cc1.setPropertyType("java.util.List<GeoLocation>");
+        cc1.setTypeHandler(Fastjson2TypeHandler.class);
+
+
+//        ColumnConfig cc2 = ColumnConfig.create();
+//        cc2.setColumnName("target_region");
+//        cc2.setJdbcType(JdbcType.VARCHAR);
+//        cc2.setPropertyType("java.util.List<String>");
+//        cc2.setTypeHandler(CommaSplitTypeHandler.class);
+//
+//        ColumnConfig cc3 = ColumnConfig.create();
+//        cc3.setColumnName("target_os");
+//        cc3.setJdbcType(JdbcType.VARCHAR);
+//        cc3.setPropertyType("java.util.List<String>");
+//        cc3.setTypeHandler(CommaSplitTypeHandler.class);
+
+        globalConfig.setColumnConfig("ad_group", cc);
+        globalConfig.setColumnConfig("ad_group", cc1);
+//        globalConfig.setColumnConfig("ad_group", cc2);
+//        globalConfig.setColumnConfig("ad_group", cc3);
         return globalConfig;
     }
 }

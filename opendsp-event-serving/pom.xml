@@ -27,7 +27,7 @@
         </dependency>
     </dependencies>
     <modules>
-        <module>opendsp-imp-serving</module>
-        <module>opendsp-clk-serving</module>
+        <module>opendsp-impression-serving</module>
+        <module>opendsp-click-serving</module>
     </modules>
 </project>

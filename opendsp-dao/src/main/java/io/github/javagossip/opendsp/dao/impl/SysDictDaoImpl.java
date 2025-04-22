@@ -7,10 +7,10 @@ import io.github.javagossip.opendsp.dao.SysDictDao;
 import org.springframework.stereotype.Service;
 
 /**
- * 系统字典表 服务层实现。
+ * 通用字典表（支持类型和树结构) 服务层实现。
  *
  * @author weiping wang
- * @since 2025-03-21
+ * @since 2025-04-16
  */
 @Service
 public class SysDictDaoImpl extends ServiceImpl<SysDictMapper, SysDict>  implements SysDictDao{

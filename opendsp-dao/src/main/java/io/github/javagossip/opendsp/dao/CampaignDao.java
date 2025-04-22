@@ -7,7 +7,7 @@ import io.github.javagossip.opendsp.model.Campaign;
  * 推广计划 服务层。
  *
  * @author weiping wang
- * @since 2025-03-21
+ * @since 2025-04-18
  */
 public interface CampaignDao extends IService<Campaign> {
 

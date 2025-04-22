@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * 推广计划 服务层实现。
  *
  * @author weiping wang
- * @since 2025-03-21
+ * @since 2025-04-18
  */
 @Service
 public class CampaignDaoImpl extends ServiceImpl<CampaignMapper, Campaign>  implements CampaignDao{
