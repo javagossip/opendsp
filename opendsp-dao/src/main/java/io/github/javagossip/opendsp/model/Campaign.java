@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  * 推广计划 实体类。
  *
  * @author weiping wang
- * @since 2025-04-18
+ * @since 2025-04-28
  */
 @Data
 @Builder

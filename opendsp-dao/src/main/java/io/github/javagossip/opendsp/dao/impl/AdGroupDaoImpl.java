@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * 广告组-广告投放策略设置 服务层实现。
  *
  * @author weiping wang
- * @since 2025-04-18
+ * @since 2025-04-28
  */
 @Service
 public class AdGroupDaoImpl extends ServiceImpl<AdGroupMapper, AdGroup>  implements AdGroupDao{

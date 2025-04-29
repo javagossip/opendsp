@@ -19,12 +19,12 @@ public class RegionDto {
             throw new IllegalArgumentException("sysDict.dictType must be " + DictType.REGION.getType());
         }
 
-        if (sysDict.getDictKey() == null || sysDict.getDictValue() == null) {
+        if (sysDict.getDictValue() == null || sysDict.getDictName() == null) {
             throw new IllegalArgumentException("sysDict.dictKey and sysDict.dictValue must not be null");
         }
 
         RegionDto regionDto = new RegionDto();
-        regionDto.setRegionCode(Integer.valueOf(sysDict.getDictKey()));
+        regionDto.setRegionCode(Integer.valueOf(sysDict.getDictValue()));
         regionDto.setRegionName(sysDict.getDictValue());
         return regionDto;
     }

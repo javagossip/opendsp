@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package top.opendsp.proto;
+
+import "enums.proto";
+import "rtb.proto";
+
+option java_package = "top.opendsp.proto.rtb.service";
+option java_outer_classname = "OpenDspRtbServices";
+option optimize_for = SPEED;
+
+service BiddingService {
+  rpc bid(BidRequest) returns (BidResponse) {}
+}

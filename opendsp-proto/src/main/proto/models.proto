@@ -1,0 +1,130 @@
+syntax = "proto3";
+
+package top.opendsp.proto;
+
+import "enums.proto";
+
+//option java_multiple_files = false;
+option java_package = "top.opendsp.proto.model";
+option java_outer_classname = "OpenDspModels";
+option optimize_for = SPEED;
+
+//广告创意类型：图片/视频/音频/原生
+enum CreativeType {
+  UNKNOWN_CREATIVE_TYPE = 0;
+  BANNER = 1;
+  VIDEO = 2;
+  AUDIO = 3;
+  NATIVE = 4;
+  REWARD_VIDEO = 5;
+}
+
+enum TimeWindow {
+  UNKNOWN_TIME_WINDOW = 0;
+  DAY = 1;
+  WEEK = 2;
+  MONTH = 3;
+}
+
+message Advertiser {
+  optional uint32 advertiser_id = 1;
+  optional uint32 agency_id = 2;
+  optional uint32 industry_id = 3;
+  //optional uint32 status = 4;
+  //optional double bid_weight = 5; //出价系数
+  //optional double cost_weight = 6; //计费系数
+}
+
+message Campaign {
+  optional uint32 campaign_id = 1;
+  optional uint32 advertiser_id = 2;
+//  optional uint32 status = 3;
+//  repeated string clk_trackers = 4;
+//  repeated string imp_trackers = 5;
+  optional uint64 budget = 6;
+}
+
+message AdGroup {
+  optional uint32 ad_group_id = 1;
+  optional uint32 campaign_id = 2;
+  optional DeliveryMode delivery_mode = 3;
+  optional PromotionType promotion_type = 4;
+  optional string landing_url = 5;
+  optional BiddingMethod bidding_method = 6;
+  optional string bundle = 7;
+
+  //optional AgesTarget target_ages = 11;   //年龄段定向
+  optional TimeTarget target_time = 12;
+  //optional GenderTarget target_gender = 13;
+  optional RegionTarget target_region = 14;
+  optional GeoLocationTarget target_geo_location = 13;
+  optional OsTarget target_os = 15;     //操作系统定向
+  optional OsvTarget target_osv = 16;   //操作系统版本定向
+  optional AdxTarget target_adx = 20;
+  optional MediaTarget target_media = 17;   //媒体定向
+  optional DeviceTypeTarget target_deviceType = 18; //设备类型定向
+  optional ConnectionTypeTarget target_connectionType = 19;
+
+  optional string deal_id = 28;
+  repeated string imp_trackers = 29;
+  repeated string clk_trackers = 30;
+  optional double bid_price = 31;
+
+  optional FreqCapping freq_capping = 33;
+  map<string, string> ext = 50;
+
+  message RegionTarget {
+    repeated uint32 region_code = 1;
+  }
+
+  message GeoLocationTarget {
+    optional string lat = 1;
+    optional string lon = 2;
+    optional uint32 radius = 3;
+  }
+
+  message ConnectionTypeTarget {
+    optional ConnectionType connection_type = 1;
+  }
+
+  message DeviceTypeTarget {
+    optional DeviceType device_type = 1;
+  }
+
+  message AdxTarget {
+    optional string adx_id = 1;
+  }
+
+  message MediaTarget {
+    repeated string media_uuid = 1;
+  }
+
+  message OsvTarget {
+    optional string low_osv = 1;
+    optional string high_osv = 2;
+  }
+
+  message OsTarget {
+    optional OsType os = 1;
+  }
+
+  message TimeTarget {
+    optional uint64 begin_time = 1;
+    optional uint64 end_time = 2;
+    optional uint64 time_slots = 3; //投放时间段
+  }
+}
+
+//频次控制模型定义
+message FreqCapping {
+  optional uint32 frequency = 1;  //频次
+  optional TimeWindow time_window = 2;  //时间窗口
+}
+
+message Creative {
+  optional uint32 creative_id = 1;
+  optional uint32 ad_group_id = 2;
+  //创意类型
+  optional CreativeType creative_type = 4;
+  optional string creative_url = 5;
+}

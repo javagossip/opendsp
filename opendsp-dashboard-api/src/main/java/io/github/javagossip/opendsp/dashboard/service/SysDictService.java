@@ -97,8 +97,8 @@ public class SysDictService {
         return sysDictDao.page(Page.of(page, size),
                 sysDictDao.queryChain()
                         .where(SYS_DICT.DICT_TYPE.like(name)
-                                .or(SYS_DICT.DICT_VALUE.like(name))
-                                .or(SYS_DICT.DICT_KEY.like(name))));
+                                .or(SYS_DICT.DICT_NAME.like(name))
+                                .or(SYS_DICT.DICT_VALUE.like(name))));
     }
 
     public List<SysDict> listAdExchanges() {
@@ -143,8 +143,8 @@ public class SysDictService {
                         .and(SYS_DICT.ENTRY_TYPE.eq(2))
                         .and(SYS_DICT.STATUS.eq(1))
                         .and(parentRegionCode == null
-                                ? SYS_DICT.PARENT_KEY.isNull()
-                                : SYS_DICT.PARENT_KEY.eq(parentRegionCode)))
+                                ? SYS_DICT.PARENT_VALUE.isNull()
+                                : SYS_DICT.PARENT_VALUE.eq(parentRegionCode)))
                 .list();
         return sysDicts.stream().map(RegionDto::of).collect(Collectors.toList());
     }

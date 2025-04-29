@@ -1,16 +1,16 @@
 package io.github.javagossip.opendsp.model;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
-
-import org.apache.ibatis.type.JdbcType;
-
 import com.mybatisflex.annotation.Column;
 import com.mybatisflex.annotation.Id;
 import com.mybatisflex.annotation.KeyType;
 import com.mybatisflex.annotation.Table;
 import com.mybatisflex.core.handler.Fastjson2TypeHandler;
+import io.github.javagossip.opendsp.model.FreqCapping;
+import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.List;
+import org.apache.ibatis.type.JdbcType;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
  * 广告组-广告投放策略设置 实体类。
  *
  * @author weiping wang
- * @since 2025-04-18
+ * @since 2025-04-28
  */
 @Data
 @Builder
@@ -68,10 +68,10 @@ public class AdGroup implements Serializable {
     /**
      * 投放时间段
      */
-    private Integer timeIntervals;
+    private String timeSlots;
 
     /**
-     * 每日投放预算
+     * 每日投放预算,单位元
      */
     private Integer budget;
 
@@ -108,8 +108,7 @@ public class AdGroup implements Serializable {
     /**
      * 频次控制, 格式：{"period":"day","freq":3}
      */
-    @Column(jdbcType = JdbcType.VARCHAR,
-            typeHandler = Fastjson2TypeHandler.class)
+    @Column(jdbcType = JdbcType.VARCHAR, typeHandler = Fastjson2TypeHandler.class)
     private FreqCapping freqCapping;
 
     /**
@@ -135,8 +134,7 @@ public class AdGroup implements Serializable {
     /**
      * 地理位置定向，json数组格式
      */
-    @Column(jdbcType = JdbcType.VARCHAR,
-            typeHandler = Fastjson2TypeHandler.class)
+    @Column(jdbcType = JdbcType.VARCHAR, typeHandler = Fastjson2TypeHandler.class)
     private List<GeoLocation> targetGeoLocation;
 
     /**
@@ -155,7 +153,7 @@ public class AdGroup implements Serializable {
     private String targetDeviceType;
 
     /**
-     * 定向设备生产商， 多个按逗号分隔
+     * 定向设备生产商， 品牌枚举
      */
     private String targetDeviceMake;
 
@@ -170,21 +168,33 @@ public class AdGroup implements Serializable {
     private String targetConnectionType;
 
     /**
-     * 曝光监测地址，多个逗号分隔
+     * 曝光监测地址
      */
     private String impTrackingUrls;
 
     /**
-     * 点击监测地址，多个逗号分隔
+     * 点击监测地址
      */
     private String clickTrackingUrls;
 
+    /**
+     * 创建日期
+     */
     private LocalDateTime createTime;
 
+    /**
+     * 更新日期
+     */
     private LocalDateTime updateTime;
 
+    /**
+     * 创建用户
+     */
     private String createUser;
 
+    /**
+     * 更新用户
+     */
     private String updateUser;
 
     /**

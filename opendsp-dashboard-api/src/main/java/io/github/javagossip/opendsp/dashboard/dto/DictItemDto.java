@@ -6,7 +6,7 @@ import lombok.Data;
 public class DictItemDto {
 
     private String dictType;
-    private String key;
+    private String name;
     private String value;
-    private String parentKey;
+    private String parentValue;
 }

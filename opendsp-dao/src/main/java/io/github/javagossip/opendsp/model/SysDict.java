@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
  * 通用字典表（支持类型和树结构) 实体类。
  *
  * @author weiping wang
- * @since 2025-04-16
+ * @since 2025-04-28
  */
 @Data
 @Builder
@@ -41,17 +41,17 @@ public class SysDict implements Serializable {
     /**
      * 字典项键值（如 male, 1, 100000）
      */
-    private String dictKey;
+    private String dictValue;
 
     /**
      * 显示值（如 男、启用、北京市）
      */
-    private String dictValue;
+    private String dictName;
 
     /**
      * 父字典key（支持树结构）
      */
-    private String parentKey;
+    private String parentValue;
 
     /**
      * entry类型： 1-类型,2-字典项

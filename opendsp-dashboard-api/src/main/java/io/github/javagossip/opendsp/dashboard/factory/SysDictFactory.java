@@ -26,15 +26,15 @@ public final class SysDictFactory {
 
     public static SysDict withDictItemDto(DictItemDto dict) {
         Preconditions.checkArgument(StringUtils.isNotBlank(dict.getDictType()), "字典类型不能为空");
-        Preconditions.checkArgument(StringUtils.isNotBlank(dict.getKey()), "字典key不能为空");
+        Preconditions.checkArgument(StringUtils.isNotBlank(dict.getName()), "字典key不能为空");
         Preconditions.checkArgument(StringUtils.isNotBlank(dict.getValue()), "字典value不能为空");
 
         SysDict sysDict = new SysDict();
-        sysDict.setDictKey(dict.getKey());
+        sysDict.setDictValue(dict.getValue());
         sysDict.setEntryType(2);
         sysDict.setDictType(dict.getDictType());
-        sysDict.setDictValue(dict.getValue());
-        sysDict.setParentKey(dict.getParentKey());
+        sysDict.setDictName(dict.getName());
+        sysDict.setParentValue(dict.getParentValue());
         return sysDict;
     }
 }

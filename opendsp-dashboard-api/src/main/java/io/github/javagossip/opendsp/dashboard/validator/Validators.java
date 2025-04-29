@@ -113,7 +113,7 @@ public class Validators {
     public static void validateDictItem(DictItemDto dict) {
         Preconditions.checkNotNull(dict, "字典不能为空");
         Preconditions.checkArgument(StringUtils.isNotBlank(dict.getDictType()), "字典类型不能为空");
-        Preconditions.checkArgument(StringUtils.isNotBlank(dict.getKey()), "字典key不能为空");
+        Preconditions.checkArgument(StringUtils.isNotBlank(dict.getName()), "字典key不能为空");
         Preconditions.checkArgument(StringUtils.isNotBlank(dict.getValue()), "字典value不能为空");
     }
 }

@@ -1,0 +1,65 @@
+syntax = "proto3";
+
+package top.opendsp.proto;
+
+option java_package = "top.opendsp.proto.enums";
+option java_outer_classname = "OpenDspEnums";
+option optimize_for = SPEED;
+
+//opendsp枚举定义
+enum OsType {
+  UNKNOWN_OS = 0;
+  IOS = 1;
+  ANDROID = 2;
+  HARMONYOS = 3;
+}
+
+//投放方式：匀速/加速
+enum DeliveryMode {
+  UNKNOWN_DELIVERY = 0;
+  SMOOTH_DELIVERY = 1;
+  SPEED_DELIVERY = 2;
+}
+
+//推广类型
+enum PromotionType {
+  UNKNOWN_PROMOTION = 0;
+  WEBSITE = 1;
+  ANDROID_APP = 2;
+  IOS_APP = 3;
+}
+
+//出价方式
+enum BiddingMethod {
+  UNKNOWN_BIDDING = 0;
+  CPC = 1;
+  CPM = 2;
+  CPA = 3;
+  OCPM = 4;
+  OCPC = 5;
+}
+
+enum DeviceType {
+  UNKNOWN_DEVICE_TYPE = 0;
+  PHONE = 1;
+  TABLET = 2;
+  CONNECTED_TV = 3;
+  PC = 4;
+}
+
+enum ConnectionType {
+  UNKNOWN_CONNECTION_TYPE = 0;
+  ETHERNET = 1;
+  WIFI = 2;
+  CELL_2G = 3;
+  CELL_3G = 4;
+  CELL_4G = 5;
+  CELL_5G = 6;
+}
+
+enum Carrier {
+  UNKNOWN_CARRIER = 0;
+  MOBILE = 1; //移动
+  UNICOM = 2;  // 联通
+  TELECOM = 3;  // 电信
+}

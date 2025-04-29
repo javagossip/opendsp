@@ -1,0 +1,166 @@
+syntax = "proto3";
+
+package top.opendsp.proto;
+
+import "enums.proto";
+
+option java_package = "top.opendsp.proto.rtb";
+option java_outer_classname = "OpenDspRtb";
+option optimize_for = SPEED;
+
+enum AuctionType {
+  UNKNOWN_AUCTION = 0;
+  SECOND_PRICE = 1;
+  FIRST_PRICE = 2;
+}
+
+//竞价请求对象
+message BidRequest {
+  optional string id = 1; //竞价请求id, 由adx自动生成
+
+  repeated Imp imp   = 2;
+  //站点对象, 网站流量使用
+  optional Site site = 3;
+  //移动应用，移动app流量使用
+  optional App app   = 4;
+  //设备对象
+  optional Device device = 5;
+  //用户对象
+  optional User user = 6;
+
+  optional bool test = 7;
+  //竞价方式：1-一价；2-二价
+  optional AuctionType at = 8;
+  //扩展字段
+  map<string, string> ext = 9;
+
+  message Imp {
+    optional string id = 1;
+
+    oneof ad {
+      Banner banner = 2; //Banner广告
+      Video video = 3;   //视频广告
+      Native native = 4; //原生/信息流广告
+    }
+
+    optional Pmp pmp = 6;            //私有竞价相关定义
+    optional string tagid = 7;       //媒体广告位id，由Ad-Exchange定义
+    optional float bidfloor = 8;     //媒体广告位底价
+    optional string bidfloorcur = 9;
+    optional bool is_native_ad = 12; //是否原生广告，原生广告dsp平台可以根据tagid来进行匹配
+//    map<string, string> ext = 11;    //扩展字段
+
+    //图片广告位请求定义
+    message Banner {
+      optional uint32 w = 1;       //banner广告位宽
+      optional uint32 h = 2;       //banner广告位高
+      optional uint32 pos = 3;     //广告位置
+    }
+
+    //视频广告位请求定义
+    message Video {
+      optional uint32 minduration = 2;  //视频最小时长
+      optional uint32 maxduration = 3;  //视频最大时长
+      optional uint32 w = 4;    //视频宽
+      optional uint32 h = 5;    //视频高
+    }
+
+    message Native {
+      //原生广告的交易平台广告位id
+      optional string tagid = 1;
+    }
+
+    //私有竞价定义
+    message Pmp {
+      repeated Deal deals = 1;
+
+      message Deal {
+        //私有化交易id
+        string id = 1;
+      }
+    }
+  }
+  //end imp
+
+  message App {
+    optional string id = 1;        //appid, 由Ad-Exchange定义
+    optional string bundle = 2;    //应用包名，对安卓是应用包名，如：com.iqiyi，ios为appstore id
+    repeated string cat = 3;           //App分类列表
+    optional string ver = 4;           //App版本
+    optional Content content = 6;      //App内容相关
+    optional string keywords = 7;      //app关键字，多个关键字逗号分隔
+  }
+
+  //站点对象定义
+  message Site {
+    optional string id = 1;            //站点id
+    optional string name = 2;          //站点名称
+    optional string domain = 3;        //站点域名
+    repeated string cat = 4;           //站点分类
+
+    optional Content content = 8;      //网站内容
+    optional string keywords = 9;      //网站关键字，多个关键字逗号分隔
+  }
+
+  message Content {
+    optional string id = 1;
+    optional string title = 2;
+    optional string keywords = 3;
+  }
+
+  //设备对象
+  message Device {
+    optional string ua = 1;          //设备ua
+    optional Geo geo = 2;            //地理位置对象
+    optional string ip = 3;          //设备ip
+    optional string ipv6 = 4;        //ipv6地址
+    optional DeviceType devicetype = 5;  //设备类型, 参考设备类型定义
+    optional string make = 6;        //设备制造商
+    optional string model = 7;       //设备型号, 如：iPhone
+    optional string os = 8;          //操作系统，如：ios/Android
+    optional string osv = 9;         //操作系统版本
+    optional string carrier = 10;          //运营商
+    optional ConnectionType connectiontype = 11;   //网络连接类型
+    optional string ifa = 12;      //明文设备码，如安卓的imei或ios的idfa
+    optional string didmd5 = 13;   //md5设备码
+    optional string mac = 14;      //mac地址明文
+    optional string macmd5 = 15;   //md5 mac地址
+  }
+
+  message Geo {
+    optional float lat = 1;       //纬度
+    optional float lon = 2;       //经度
+    optional string country = 3;  //国家编码
+    optional string region = 4;   //地区编码
+    optional string city = 5;     //城市编码
+    //6位地域码
+    optional uint32 region_code = 6; //6位地域码
+  }
+
+  message User {
+    optional string id = 1;    //Ad-Exchange用户标识
+  }
+}
+
+message BidResponse {
+  //竞价请求id, 和BidRequest的id保持一致
+  optional string id = 1;
+  repeated SeatBid seatbid = 2;    //针对单个广告位的竞价响应
+  optional string bidid = 3;       //dsp生成的竞价响应id
+
+  message SeatBid {
+    repeated Bid bid = 1;        //同一个广告位的多个出价
+    optional string seat = 2;    //广告位名称
+
+    message Bid {
+      optional string id = 1;        //dsp平台参与出价id
+      optional string impid = 2;     //曝光id, 关联竞价请求中Imp中id
+      optional float price = 3;      //广告出价, 单位是分
+      optional string crid = 4;      //dsp平台创意id
+      optional string dealid = 5;    //请求pmp dealid
+
+      repeated string imptrackers = 6; //曝光跟踪地址
+      repeated string clktrackers = 7; //点击跟踪地址
+    }
+  }
+}
